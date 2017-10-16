@@ -4,16 +4,24 @@ int c = 200;
 int d = 200;
 int e = 200;
 int f = 200;
+int size =250;
+Particles[] Name = new Particles[size];
 
 void setup() {
-PImage bike = loadImage("bluemenubike.jpg");
+PImage bike = loadImage("bluemenubike.png");
 size(1500,750);
 background(0);
-textSize(200);
-fill(50,175,255);
-text("TRON",400,200);
+colorMode(RGB);
+//image(bike,50,50);
+for (int i = 0; size > i; i++) {
+    Name[i] = new Particles(int(random(0,width)),int(random(0,height)),2);
+  }
 }
 void draw() {
+  background(0);
+  fill(50,175,255);
+  textSize(200);
+  text("TRON",400,200);
   strokeWeight(7.5);
   stroke(75,75,75);
   if (mouseX > 500 && mouseX < 850 && mouseY > 300 && mouseY < 400) {
@@ -55,4 +63,53 @@ void draw() {
   text("MULTIPLAYER", 545,515);
   text("SETTINGS", 580,665);
   
+  for (int i=0;size>i;i++) {
+    Name[i].burst();
+  }
+  
+}
+
+// New Tab
+
+class Particles {
+  int X;
+  int Y;
+  int C;
+  int D;
+  
+  Particles(int Xpos, int Ypos,int CTF) {
+    X=Xpos;
+    Y=Ypos;
+    D=CTF;
+  }
+
+    
+  void burst() {
+      point(X,Y);
+      point(X+1,Y);
+      point(X-1,Y);
+      point(X,Y+1);
+      point(X,Y-1);
+      if (D==2) {
+        colorMode(RGB);
+        fill(C,175,255);
+        stroke(C,255,255);
+      }
+      Y+=1;
+      X+=random(-1,2);
+      if(Y==height) {
+        Y=0;
+      }
+      if(X==0){
+        X=width; 
+      }
+      if (X==width) {
+        X=0;
+      }
+      
+      if (C==360) {
+        C=0;
+      }
+      C= C+1;
+  }
 }
